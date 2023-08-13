@@ -141,11 +141,12 @@ def InstallSysroot(target_platform, target_arch):
   for _ in range(3):
     try:
       response = requests.get(url)
+      print('reponse=====> %s' % response)
       with open(tarball, "wb") as f:
-        f.write(response.read())
+        f.write(response.content)
       break
-    except Exception:  # Ignore exceptions.
-      pass
+    except Exception as e:  # Ignore exceptions.
+      print("Error>>>>: {}".format(e))
   else:
     raise Error('Failed to download %s' % url)
   sha1sum = GetSha1(tarball)
