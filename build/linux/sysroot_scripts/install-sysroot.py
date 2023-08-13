@@ -30,12 +30,13 @@ import re
 import shutil
 import subprocess
 import sys
-try:
-    # For Python 3.0 and later
-    from urllib.request import urlopen
-except ImportError:
-    # Fall back to Python 2's urllib2
-    from urllib.request import urlopen
+import requests
+# try:
+#     # For Python 3.0 and later
+#     from urllib.request import urlopen
+# except ImportError:
+#     # Fall back to Python 2's urllib2
+#     from urllib.request import urlopen
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -139,7 +140,7 @@ def InstallSysroot(target_platform, target_arch):
   sys.stderr.flush()
   for _ in range(3):
     try:
-      response = urlopen(url)
+      response = requests.get(url)
       with open(tarball, "wb") as f:
         f.write(response.read())
       break
